@@ -2,6 +2,8 @@
 
 Demo project showing AI visual regression testing using [Applitools Eyes](https://applitools.com) with Selenium 4 and TestNG.
 
+**Repository:** https://github.com/alexrossqa/alexrossqa-appitools-java
+
 ## Demo
 
 [Watch on Vimeo](https://vimeo.com/1192265401)
