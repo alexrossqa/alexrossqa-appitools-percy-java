@@ -212,6 +212,55 @@
     }
     .arr { font-size: 11px; color: var(--text-tertiary); padding: 0 4px; }
 
+    .steps { display: flex; flex-direction: column; gap: 1px; }
+    .step-row {
+      display: flex;
+      gap: 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+    }
+    .step-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      min-width: 1.5rem;
+      padding-top: 2px;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.01em;
+    }
+    .step-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .step-desc a { color: var(--link); text-decoration: none; }
+    .step-desc a:hover { text-decoration: underline; }
+    .step-code {
+      font-family: var(--mono);
+      font-size: 12px;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 10px;
+      margin-top: 0.6rem;
+      display: inline-block;
+      color: var(--text-primary);
+    }
+    .step-note {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      margin-top: 0.5rem;
+    }
+
     footer { padding: 2.5rem 0; text-align: center; }
     footer p { font-family: var(--mono); font-size: 12px; color: var(--text-tertiary); }
 
@@ -277,6 +326,40 @@
             <span class="step">Inject CSS regression</span><span class="arr">→</span>
             <span class="step">Run test</span><span class="arr">→</span>
             <span class="step">AI flags diff</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="section">
+      <p class="section-label">How to run</p>
+
+      <div class="steps">
+        <div class="step-row">
+          <span class="step-num">01</span>
+          <div class="step-content">
+            <p class="step-title">Run the baseline test</p>
+            <p class="step-desc">Selenium opens the demo login page and Applitools captures a screenshot. The snapshot is sent to your Applitools account and appears in the dashboard with the status <strong>New</strong> — no approved reference exists yet.</p>
+            <code class="step-code">mvn test -Dtest=loginPageBaseline</code>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <span class="step-num">02</span>
+          <div class="step-content">
+            <p class="step-title">Approve the baseline in the Applitools dashboard</p>
+            <p class="step-desc">Log in at <a href="https://eyes.applitools.com" target="_blank">eyes.applitools.com</a>, open the test run, and click <strong>Accept</strong> on the snapshot marked New. This tells Applitools "this is the correct UI — use it as the reference for all future comparisons." Without this step the regression test has nothing to compare against.</p>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <span class="step-num">03</span>
+          <div class="step-content">
+            <p class="step-title">Run the regression test</p>
+            <p class="step-desc">A CSS change is injected at runtime, turning the login button red to simulate a bad deploy. Applitools compares the new screenshot against the approved baseline and marks the test <strong>Unresolved</strong>, with the diff highlighted in the dashboard.</p>
+            <code class="step-code">mvn test -Dtest=loginPageRegression</code>
+            <p class="step-note">Running mvn test without specifying a test executes both — skip the approval step and both snapshots show as New rather than flagging the diff.</p>
           </div>
         </div>
       </div>
